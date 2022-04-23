@@ -5,11 +5,8 @@ import 'package:flutter/material.dart';
 class Routes {
   Routes._();
 
-  static const String usersPage = '/users';
-  static const String userDisplayPage = "/user_display";
+  static const String usersPage = '/';
+  static const String userDisplayPage = '/user_display';
 
-  static final dynamic routes = <String, WidgetBuilder>{
-    usersPage: (BuildContext context) => const Users(),
-    userDisplayPage: (BuildContext context) => const UserDisplay()
-  };
+
 }

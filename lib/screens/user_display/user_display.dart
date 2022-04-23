@@ -1,9 +1,15 @@
+import 'dart:developer';
+
 import 'package:ceiba_flutter_exercise/localizations/app_localizations.dart';
+import 'package:ceiba_flutter_exercise/models/post_data.dart';
 import 'package:ceiba_flutter_exercise/models/user_data.dart';
+import 'package:ceiba_flutter_exercise/screens/user_display/widgets/post_view.dart';
+import 'package:ceiba_flutter_exercise/services/services.dart';
 import 'package:flutter/material.dart';
 
 class UserDisplay extends StatefulWidget {
-  const UserDisplay({Key? key}) : super(key: key);
+  final UserData? user;
+  const UserDisplay({Key? key, this.user}) : super(key: key);
 
   @override
   State<UserDisplay> createState() => _UserDisplayState();
@@ -13,21 +19,39 @@ class _UserDisplayState extends State<UserDisplay> {
 
 
 
-  UserData? _user;
+  final List<Widget> _posts = [];
+  bool _loadingPosts = false;
 
   @override
   void initState() {
     super.initState();
 
 
+    _loadPosts();
+  }
+
+
+  void _loadPosts () async{
+
+    setState(() {
+      _loadingPosts = false;
+      _posts.clear();
+    });
+
+    List<PostData> postsList = await Services.getPosts(widget.user!.id.toString());
+
+    for(PostData post in postsList) {
+      _posts.add(PostView(post: post,));
+    }
+
+    setState(() {
+      _loadingPosts = false;
+    });
   }
 
 
   @override
   Widget build(BuildContext context) {
-
-    _user = ModalRoute.of(context)!.settings.arguments as UserData;
-
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context).user),
@@ -44,7 +68,7 @@ class _UserDisplayState extends State<UserDisplay> {
                 const SizedBox(height: 20,),
 
                 SizedBox(width: double.infinity,
-                child: Text(_user!.name, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),),
+                child: Text(widget.user!.name, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),),
 
                 const SizedBox(height: 10,),
 
@@ -54,7 +78,7 @@ class _UserDisplayState extends State<UserDisplay> {
                     text: TextSpan(
                         children: [
                           const WidgetSpan(child: Icon(Icons.phone)),
-                          TextSpan(text: " ${_user!.phone}", style: const TextStyle(color: Colors.black))
+                          TextSpan(text: " ${widget.user!.phone}", style: const TextStyle(color: Colors.black))
 
                         ]
                     ),
@@ -70,7 +94,7 @@ class _UserDisplayState extends State<UserDisplay> {
                         children: [
                           const WidgetSpan(child: Icon(Icons.email)),
 
-                          TextSpan(text: " ${_user!.email}", style: const TextStyle(color: Colors.black))
+                          TextSpan(text: " ${widget.user!.email}", style: const TextStyle(color: Colors.black))
 
                         ]
                     ),
@@ -105,7 +129,24 @@ class _UserDisplayState extends State<UserDisplay> {
                 const SizedBox(height: 10,),
 
                 Expanded(
-                  child: Container(),
+                  child: !_loadingPosts? SingleChildScrollView(
+                    child: Column(
+                      children: _posts,
+                    ),
+                  ) : Column(
+                    children: const [
+                      SizedBox(
+                        width: double.infinity,
+                        height: 40,
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: FittedBox(
+                            child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.green),),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
                 )
 
 

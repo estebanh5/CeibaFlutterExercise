@@ -1,5 +1,8 @@
 import 'package:ceiba_flutter_exercise/localizations/app_localizations.dart';
+import 'package:ceiba_flutter_exercise/models/user_data.dart';
 import 'package:ceiba_flutter_exercise/routes.dart';
+import 'package:ceiba_flutter_exercise/screens/user_display/user_display.dart';
+import 'package:ceiba_flutter_exercise/screens/users/users.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -27,7 +30,19 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      routes: Routes.routes,
+
+      onGenerateRoute: (settings) {
+
+
+        if(settings.name == Routes.userDisplayPage) {
+
+          UserData user = settings.arguments as UserData;
+          return MaterialPageRoute(builder: (context) => UserDisplay(user: user));
+        }
+        return MaterialPageRoute(builder: (context) => const Users());
+
+
+      },
       initialRoute: Routes.usersPage,
     );
   }

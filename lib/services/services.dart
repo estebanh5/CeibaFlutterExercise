@@ -38,11 +38,25 @@ class Services {
 
   static Future<List<PostData>> getPosts(String userId) async{
 
-    var response = await Dio().get("${Endpoint.postsEndPoint}?userId=$userId");
+    List<PostData> posts = await DBService.getAllUserPosts(userId);
 
-    List<dynamic> body = response.data;
+    if(posts.isNotEmpty) {
+      return posts;
+    }else {
+      var response = await Dio().get("${Endpoint.postsEndPoint}?userId=$userId");
 
-    return body.map((data) => PostData.fromMap(data)).toList();
+      List<dynamic> body = response.data;
+
+      List<PostData> postsList = body.map((data) => PostData.fromMap(data)).toList();
+
+      for(PostData postData in postsList) {
+        await DBService.insertPost(postData);
+      }
+
+      return postsList;
+    }
+
+
 
   }
 

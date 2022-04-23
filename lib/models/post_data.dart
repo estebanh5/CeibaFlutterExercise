@@ -4,7 +4,7 @@ import 'package:ceiba_flutter_exercise/constants/post_constants.dart';
 class PostData {
 
   int id;
-  String userId;
+  int userId;
   String title;
   String body;
 

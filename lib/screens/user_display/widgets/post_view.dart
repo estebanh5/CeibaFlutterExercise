@@ -11,15 +11,20 @@ class PostView extends StatelessWidget {
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Padding(padding: const EdgeInsets.all(20),
+
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
 
-          Text(post.title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
+          SizedBox(width: double.infinity,
+          child: Text(post.title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),),
 
           const SizedBox(height: 10,),
 
-          Text(post.body,),
+          SizedBox(
+            width: double.infinity,
+            child: Text(post.body,),
+          )
 
 
 

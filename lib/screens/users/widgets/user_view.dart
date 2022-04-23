@@ -10,18 +10,19 @@ class UserView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Padding(padding: const EdgeInsets.all(10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
 
-            Text(user.name),
+            Text(user.name, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
 
             RichText(
               text: TextSpan(
                   children: [
                     const WidgetSpan(child: Icon(Icons.phone)),
-                    TextSpan(text: user.phone)
+                    TextSpan(text: " ${user.phone}", style: const TextStyle(color: Colors.black))
 
                   ]
               ),
@@ -31,7 +32,8 @@ class UserView extends StatelessWidget {
               text: TextSpan(
                   children: [
                     const WidgetSpan(child: Icon(Icons.email)),
-                    TextSpan(text: user.email)
+
+                    TextSpan(text: " ${user.email}", style: const TextStyle(color: Colors.black))
 
                   ]
               ),

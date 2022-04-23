@@ -1,7 +1,7 @@
 
 
-class PublicationConstants {
-  PublicationConstants._();
+class PostConstants {
+  PostConstants._();
 
   static const String idField = "id";
   static const String userIdField = "userId";

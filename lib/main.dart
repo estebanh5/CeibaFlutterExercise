@@ -1,3 +1,4 @@
+import 'package:ceiba_flutter_exercise/localizations/app_localizations.dart';
 import 'package:ceiba_flutter_exercise/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -13,10 +14,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Ceiba Test',
-      localizationsDelegates: const [
+      localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
+        AppLocalizations.delegate
       ],
       supportedLocales: const [
         Locale('en', ''),

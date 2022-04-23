@@ -21,7 +21,7 @@ class UserView extends StatelessWidget {
             RichText(
               text: TextSpan(
                   children: [
-                    const WidgetSpan(child: Icon(Icons.phone)),
+                    const WidgetSpan(child: Icon(Icons.phone, color: Colors.green,)),
                     TextSpan(text: " ${user.phone}", style: const TextStyle(color: Colors.black))
 
                   ]
@@ -31,7 +31,7 @@ class UserView extends StatelessWidget {
             RichText(
               text: TextSpan(
                   children: [
-                    const WidgetSpan(child: Icon(Icons.email)),
+                    const WidgetSpan(child: Icon(Icons.email, color: Colors.green,)),
 
                     TextSpan(text: " ${user.email}", style: const TextStyle(color: Colors.black))
 

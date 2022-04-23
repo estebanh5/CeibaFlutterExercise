@@ -65,10 +65,7 @@ class _UsersState extends State<Users> {
   }
 
 
-  void _openUserDisplay(UserData user) {
-
-    Navigator.pushNamed(context, Routes.userDisplayPage, arguments: user);
-  }
+  void _openUserDisplay(UserData user) => Navigator.pushNamed(context, Routes.userDisplayPage, arguments: user);
 
 
 
